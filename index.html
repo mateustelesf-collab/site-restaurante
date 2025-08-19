@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nori — Restaurante Japonês Premium</title>
+  <meta name="description" content="Nori: autêntica culinária japonesa com toque contemporâneo. Reserve sua mesa, faça pedidos online e conheça nosso cardápio exclusivo." />
+  <meta name="color-scheme" content="light dark" />
+  
+  <!-- Open Graph / SEO -->
+  <meta property="og:title" content="Nori — Restaurante Japonês Premium" />
+  <meta property="og:description" content="Autêntica culinária japonesa com toque contemporâneo em um ambiente sofisticado." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23222'/%3E%3Cpath d='M20 65c15-10 45-10 60 0' stroke='%23fff' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='40' r='10' fill='%23ff4d4f'/%3E%3C/svg%3E" />
+
+  <!-- Preload de imagens críticas -->
+  <link rel="preload" href="https://images.unsplash.com/photo-1611143669185-af224c5e0102?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" as="image">
+  <link rel="preload" href="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" as="image">
+
+  <!-- JSON-LD: dados estruturados para Restaurante -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Nori Restaurante",
+    "servesCuisine": ["Japonesa", "Contemporânea"],
+    "address": {
+      "@type": "PostalAddress", 
+      "streetAddress": "Av. Exemplo, 123", 
+      "addressLocality": "Fortaleza", 
+      "addressRegion": "CE", 
+      "addressCountry": "BR"
+    },
+    "telephone": "+55 85 99999-0000",
+    "priceRange": "$$$",
+    "url": "https://nori.com.br",
+    "image": [
+      "https://images.unsplash.com/photo-1611143669185-af224c5e0102?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    ],
+    "openingHours": ["Mo-Su 11:30-23:00"],
+    "menu": "https://nori.com.br/#cardapio"
+  }
+  </script>
+
+  <style>
+    /* ========= Design System (CSS Variables) ========= */
+    :root {
+      --bg: #0b0c0f;
+      --panel: #12141a;
+      --text: #e7e9ee;
+      --muted: #a2a8b4;
+      --brand: #00d0a0;
+      --brand-2: #7c5cff;
+      --accent: #ff4d4f;
+      --ok: #2ecc71;
+      --warn: #f1c40f;
+      --error: #e74c3c;
+      --ring: #3c9;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --shadow-light: 0 5px 15px rgba(0,0,0,.2);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --radius-lg: 24px;
+      --gap: clamp(.75rem, 1.6vw, 1.25rem);
+      --maxw: 1200px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --transition: all 0.3s ease;
+    }
+    
+    @media (prefers-color-scheme: light) {
+      html[data-theme="auto"]:root { 
+        --bg: #f7f8fb; 
+        --panel: #ffffff; 
+        --text: #151823; 
+        --muted: #556070; 
+        --shadow: 0 10px 30px rgba(20,20,20,.08);
+      }  
+    }
+    
+    html[data-theme="light"]:root { 
+      --bg: #f7f8fb; 
+      --panel: #ffffff; 
+      --text: #151823; 
+      --muted: #556070; 
+      --shadow: 0 10px 30px rgba(20,20,20,.08);
+    } 
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; scroll-behavior: smooth; }
+    
+    body {
+      margin: 0; 
+      font-family: var(--font); 
+      background: 
+        radial-gradient(1200px 600px at 80% -10%, rgba(124,92,255,.18), transparent),
+        radial-gradient(1000px 600px at 10% 10%, rgba(0,208,160,.18), transparent), 
+        var(--bg);
+      color: var(--text); 
+      line-height: 1.6; 
+      letter-spacing: .2px;
+      overflow-x: hidden;
+    }
+    
+    a { color: inherit; text-decoration: none; transition: var(--transition); }
+    img { max-width: 100%; height: auto; display: block; }
+    button { font-family: inherit; cursor: pointer; }
+    
+    .container { 
+      width: min(100% - 2rem, var(--maxw)); 
+      margin-inline: auto; 
+    }
+    
+    .surface { 
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0)), var(--panel); 
+      border: 1px solid rgba(255,255,255,.06); 
+      border-radius: var(--radius); 
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .surface:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-light);
+    }
+    
+    .chip { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: .5rem; 
+      padding: .5rem .9rem; 
+      border-radius: 100px; 
+      border: 1px solid rgba(255,255,255,.12); 
+      background: rgba(255,255,255,.03); 
+      color: var(--muted); 
+      font-size: .9rem;
+    }
+    
+    .btn { 
+      display: inline-flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: .55rem; 
+      border: none; 
+      padding: .9rem 1.1rem; 
+      border-radius: 12px; 
+      cursor: pointer; 
+      font-weight: 600; 
+      transition: transform .05s ease, filter .2s ease, opacity .2s ease, background .3s ease;
+    }
+    
+    .btn:active { transform: translateY(1px); }
+    .btn:hover { filter: brightness(1.1); }
+    
+    .btn-primary { 
+      background: linear-gradient(135deg, var(--brand), var(--brand-2)); 
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+      transition: .5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-ghost { 
+      background: transparent; 
+      border: 1px solid rgba(255,255,255,.2); 
+      color: var(--text);
+    }
+    
+    .btn-ghost:hover {
+      background: rgba(255,255,255,.05);
+    }
+    
+    .btn-danger { background: var(--error); color: white; }
+    .btn-icon { padding: .6rem; aspect-ratio: 1/1; }
+    
+    .hidden { display: none !important; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Skip link */
+    .skip { 
+      position: absolute; 
+      left: -9999px; 
+      top: auto; 
+      width: 1px; 
+      height: 1px; 
+      overflow: hidden;
+      background: var(--brand-2);
+      color: white;
+      padding: .5rem .75rem;
+      border-radius: 8px;
+      z-index: 1000;
+    }
+    
+    .skip:focus { 
+      position: fixed; 
+      top: 1rem;
+      left: 1rem;
+      width: auto; 
+      height: auto; 
+    }
+
+    /* ========= Header / Navbar ========= */
+    header { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+      backdrop-filter: blur(10px); 
+      background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.25)); 
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: var(--transition);
+    }
+    
+    header.scrolled {
+      background: rgba(11, 12, 15, 0.95);
+      box-shadow: 0 5px 20px rgba(0,0,0,.2);
+    }
+    
+    nav { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 1rem; 
+      padding: .75rem 0;
+    }
+    
+    .brand { 
+      display: flex; 
+      align-items: center; 
+      gap: .75rem; 
+      font-weight: 800; 
+      letter-spacing: .4px; 
+      font-size: 1.5rem;
+    }
+    
+    .brand-logo { 
+      width: 36px; 
+      height: 36px; 
+      border-radius: 50%; 
+      display: grid; 
+      place-items: center; 
+      background: conic-gradient(from 120deg, var(--brand), var(--brand-2)); 
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,.15);
+    }
+    
+    .brand-logo svg { width: 22px; height: 22px; }
+    
+    .nav-links { 
+      display: flex; 
+      gap: .5rem; 
+      align-items: center;
+    }
+    
+    .nav-links a { 
+      padding: .55rem .85rem; 
+      border-radius: 10px; 
+      color: var(--muted);
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--brand);
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+    
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after {
+      width: 70%;
+    }
+    
+    .nav-links a[aria-current="page"], 
+    .nav-links a:hover { 
+      color: var(--text); 
+      background: rgba(255,255,255,.06);
+    }
+    
+    .nav-actions { display: flex; gap: .5rem; align-items: center; }
+    .hamburger { display: none; }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hamburger { display: inline-flex; }
+      
+      .nav-links.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--panel);
+        padding: 1rem;
+        border-top: 1px solid rgba(255,255,255,.08);
+        box-shadow: 0 10px 30px rgba(0,0,0,.3);
+      }
+    }
+
+    /* ========= Hero ========= */
+    .hero { 
+      padding: clamp(2rem, 6vw, 5rem) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        url('https://images.unsplash.com/photo-1611143669185-af224c5e0102?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+      opacity: 0.2;
+      z-index: -1;
+    }
+    
+    .hero-grid { 
+      display: grid; 
+      grid-template-columns: 1.2fr 1fr; 
+      gap: var(--gap); 
+      align-items: center;
+    }
+    
+    .hero h1 { 
+      font-size: clamp(1.8rem, 4vw, 3rem); 
+      line-height: 1.1; 
+      margin: 0 0 1rem;
+      background: linear-gradient(135deg, var(--text), var(--brand-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p { margin: 0 0 1.25rem; color: var(--muted); font-size: 1.1rem; }
+    
+    .hero-cta { 
+      display: flex; 
+      gap: .65rem; 
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero-card { 
+      padding: 1rem; 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: var(--gap);
+      backdrop-filter: blur(10px);
+    }
+    
+    .metric { 
+      padding: 1rem; 
+      border-radius: var(--radius); 
+      background: rgba(255,255,255,.03); 
+      border: 1px solid rgba(255,255,255,.06);
+      text-align: center;
+    }
+    
+    .metric b { font-size: 1.6rem; display: block; margin-bottom: 0.25rem; }
+    
+    .hero-badge { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: .5rem; 
+      font-weight: 700; 
+      letter-spacing: .5px; 
+      color: white; 
+      background: linear-gradient(90deg, var(--accent), var(--brand)); 
+      padding: .4rem .7rem .4rem .4rem; 
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-dish { 
+      aspect-ratio: 1 / 1; 
+      border-radius: var(--radius-lg); 
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    
+    .hero-dish img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .hero-dish:hover img {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 980px) { 
+      .hero-grid { grid-template-columns: 1fr; } 
+      .hero-dish { order: -1; max-width: 500px; margin: 0 auto; }
+    }
+
+    /* ========= Sections / Titles ========= */
+    section { scroll-margin-top: 90px; padding: 3rem 0; }
+    
+    .section-head { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: end; 
+      gap: 1rem; 
+      margin: 2rem 0 1rem;
+    }
+    
+    .section-head h2 { 
+      margin: 0; 
+      font-size: clamp(1.3rem, 2.4vw, 2rem);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-head h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--brand);
+      border-radius: 2px;
+    }
+    
+    .section-sub { color: var(--muted); margin-top: .4rem; }
+
+    /* ========= Menu ========= */
+    .menu-grid { 
+      display: grid; 
+      grid-template-columns: repeat(12, 1fr); 
+      gap: var(--gap);
+      margin-top: 2rem;
+    }
+    
+    .filters { 
+      grid-column: span 3; 
+      position: sticky; 
+      top: 86px; 
+      align-self: start; 
+      padding: 1.5rem;
+    }
+    
+    .filters .group { margin-bottom: 1.5rem; }
+    
+    .filters label { 
+      display: flex; 
+      align-items: center; 
+      gap: .5rem; 
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .filters input[type="checkbox"] { 
+      transform: translateY(1px);
+      accent-color: var(--brand);
+    }
+    
+    .menu-list { 
+      grid-column: span 9; 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: var(--gap);
+    }
+    
+    .dish { 
+      display: flex; 
+      flex-direction: column; 
+      border-radius: var(--radius); 
+      overflow: hidden; 
+      border: 1px solid rgba(255,255,255,.08); 
+      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent), var(--panel);
+      transition: var(--transition);
+    }
+    
+    .dish:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-light);
+    }
+    
+    .dish-visual { 
+      aspect-ratio: 16/10; 
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dish-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .dish:hover .dish-visual img {
+      transform: scale(1.1);
+    }
+    
+    .dish-body { padding: 1.25rem; display: flex; flex-direction: column; gap: .75rem; }
+    
+    .dish-title { 
+      display: flex; 
+      justify-content: space-between; 
+      gap: .75rem; 
+      align-items: center;
+    }
+    
+    .badge { 
+      font-size: .75rem; 
+      color: white; 
+      padding: .15rem .5rem; 
+      border-radius: 999px; 
+      background: var(--accent);
+      white-space: nowrap;
+    }
+    
+    .price { font-weight: 800; font-size: 1.2rem; color: var(--brand); }
+    
+    .dish-desc { color: var(--muted); font-size: .95rem; line-height: 1.5; }
+    
+    .pillbar { display: flex; gap: .5rem; flex-wrap: wrap; }
+    
+    .pill { 
+      background: rgba(255,255,255,.06); 
+      border: 1px solid rgba(255,255,255,.1); 
+      padding: .3rem .6rem; 
+      border-radius: 999px; 
+      font-size: .8rem; 
+      color: var(--muted);
+    }
+    
+    .card-actions { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;
+      gap: .5rem; 
+      margin-top: .5rem;
+    }
+    
+    .qty { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: .5rem; 
+      border: 1px solid rgba(255,255,255,.12); 
+      border-radius: 12px; 
+      padding: .35rem .6rem;
+      min-width: 40px;
+      justify-content: center;
+    }
+
+    @media (max-width: 1100px) { 
+      .menu-list { grid-template-columns: repeat(2, 1fr); } 
+      .filters { grid-column: span 12; position: static; order: -1; } 
+      .menu-list { grid-column: span 12; } 
+    }
+    
+    @media (max-width: 640px) { .menu-list { grid-template-columns: 1fr; } }
+
+    /* ========= Reservas & Delivery ========= */
+    form { display: grid; gap: 1rem; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+    
+    .field { display: grid; gap: .5rem; }
+    
+    .field label { color: var(--muted); font-size: .95rem; font-weight: 500; }
+    
+    .field input, .field select, .field textarea { 
+      padding: .8rem .9rem; 
+      border-radius: 12px; 
+      border: 1px solid rgba(255,255,255,.16); 
+      background: rgba(255,255,255,.04); 
+      color: var(--text);
+      transition: var(--transition);
+    }
+    
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(0, 208, 160, 0.2);
+    }
+    
+    .hint { font-size: .85rem; color: var(--muted); }
+    
+    .divider { 
+      height: 1px; 
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent); 
+      margin: 1.5rem 0;
+    }
+
+    /* ========= Cart (Drawer) ========= */
+    .drawer { 
+      position: fixed; 
+      inset: 0; 
+      pointer-events: none; 
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .drawer.active { 
+      pointer-events: auto;
+      opacity: 1;
+    }
+    
+    .drawer .overlay { 
+      position: absolute; 
+      inset: 0; 
+      background: rgba(0,0,0,.5); 
+      opacity: 0; 
+      transition: opacity .3s ease;
+    }
+    
+    .drawer.active .overlay { opacity: 1; }
+    
+    .drawer .panel { 
+      position: absolute; 
+      top: 0; 
+      right: 0; 
+      width: min(420px, 100%); 
+      height: 100%; 
+      background: var(--panel); 
+      border-left: 1px solid rgba(255,255,255,.08); 
+      transform: translateX(100%); 
+      transition: transform .3s ease; 
+      display: grid; 
+      grid-template-rows: auto 1fr auto;
+    }
+    
+    .drawer.active .panel { transform: none; }
+    
+    .panel header, .panel footer { padding: 1.25rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .panel footer { border-top: 1px solid rgba(255,255,255,.08); border-bottom: none; }
+    
+    .cart-list { padding: 1.25rem; overflow: auto; display: grid; gap: 1rem; }
+    
+    .cart-item { 
+      display: grid; 
+      grid-template-columns: auto 1fr auto; 
+      gap: .75rem; 
+      align-items: center; 
+      border: 1px solid rgba(255,255,255,.08); 
+      border-radius: 12px; 
+      padding: .75rem;
+      transition: var(--transition);
+    }
+    
+    .cart-item:hover {
+      background: rgba(255,255,255,.03);
+    }
+    
+    .cart-item .thumb { 
+      width: 56px; 
+      height: 56px; 
+      border-radius: 10px; 
+      background: rgba(255,255,255,.05);
+      overflow: hidden;
+    }
+    
+    .cart-item .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .cart-item .name { font-weight: 600; }
+    
+    .cart-totals { display: grid; gap: .5rem; color: var(--muted); }
+    .cart-totals .row { display: flex; justify-content: space-between; }
+    .total { font-size: 1.2rem; font-weight: 800; color: var(--text); margin-top: .5rem; }
+
+    /* ========= Footer ========= */
+    footer.site { 
+      margin-top: 3rem; 
+      padding: 3rem 0 1.5rem; 
+      color: var(--muted);
+      background: rgba(0,0,0,.3);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    
+    .kicker { text-align: center; padding: 1.5rem 0 0; color: var(--muted); font-size: .9rem; }
+
+    /* ========= Utilities ========= */
+    .sr-only { 
+      position: absolute; 
+      width: 1px; 
+      height: 1px; 
+      padding: 0; 
+      margin: -1px; 
+      overflow: hidden; 
+      clip: rect(0,0,0,0); 
+      white-space: nowrap; 
+      border: 0;
+    }
+    
+    .flex { display: flex; gap: .5rem; align-items: center; }
+    .right { margin-left: auto; }
+    
+    /* Loading animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fadeIn {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .hero-card {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+    
+    /* Lazy loading for images */
+    img.lazy {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    img.lazy.loaded {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <a href="#conteudo" class="skip">Pular para o conteúdo principal</a>
+  
+  <header id="header">
+    <div class="container">
+      <nav aria-label="Principal">
+        <a class="brand" href="#home" aria-label="Página inicial">
+          <span class="brand-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z" fill="currentColor" opacity=".15"/><path d="M5 15c2.5-1.7 7.5-1.7 10 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="9" r="2" fill="currentColor"/></svg>
+          </span>
+          Nori
+        </a>
+        
+        <div class="nav-links" role="navigation">
+          <a href="#cardapio">Cardápio</a>
+          <a href="#reservas">Reservas</a>
+          <a href="#delivery">Delivery</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#contato">Contato</a>
+        </div>
+        
+        <div class="nav-actions">
+          <button class="btn btn-ghost btn-icon" id="themeToggle" aria-label="Alternar tema (claro/escuro)">
+            <svg id="sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 4V2m0 20v-2M4 12H2m20 0h-2M5 5 3.6 3.6M20.4 20.4 19 19M19 5l1.4-1.4M5 19 3.6 20.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="4"/></svg>
+          </button>
+          
+          <button class="btn btn-ghost" id="openCart">
+            <span aria-hidden>🛒</span> Carrinho <span class="chip" id="cartCount">0</span>
+          </button>
+          
+          <button class="btn btn-primary" data-scroll="#reservas">Reservar</button>
+          
+          <button class="btn btn-ghost hamburger" id="menuToggle" aria-label="Abrir menu">☰</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- ===== Hero ===== -->
+    <section class="hero container" id="home">
+      <div class="hero-grid">
+        <div class="fade-in">
+          <span class="hero-badge">NOVO MENU DE PRIMAVERA</span>
+          <h1>Autêntica culinária japonesa com toque contemporâneo</h1>
+          <p>Experiências gastronômicas únicas, peixes frescos selecionados diariamente e bowls acolhedores. Delivery e salão todos os dias, 11h30–23h.</p>
+          
+          <div class="hero-cta">
+            <button class="btn btn-primary" data-scroll="#cardapio">Ver Cardápio</button>
+            <button class="btn btn-ghost" data-scroll="#delivery">Fazer Pedido</button>
+            <button class="btn btn-ghost" data-scroll="#reservas">Reservar Mesa</button>
+          </div>
+          
+          <div class="hero-card surface">
+            <div class="metric">
+              <div>Tempo médio de entrega</div>
+              <b>35–50 min</b>
+            </div>
+            <div class="metric">
+              <div>Avaliação</div>
+              <b>4.8 ★</b>
+            </div>
+            <div class="metric">
+              <div>Taxa de serviço</div>
+              <b>10%</b>
+            </div>
+            <div class="metric">
+              <div>Frete</div>
+              <b>R$ 9,90</b>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hero-dish fade-in" style="animation-delay: 0.2s;">
+          <img 
+            src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            alt="Poke bowl de salmão fresco com abacate, edamame e arroz"
+            loading="eager"
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Cardápio ===== -->
+    <section class="container" id="cardapio">
+      <div class="section-head">
+        <div>
+          <h2>Cardápio</h2>
+          <div class="section-sub">Busque, filtre e adicione ao carrinho.</div>
+        </div>
+        
+        <div class="flex">
+          <label class="sr-only" for="q">Buscar</label>
+          <input id="q" class="chip" placeholder="🔍 Buscar por nome ou ingrediente" />
+          
+          <select id="sort" class="chip" aria-label="Ordenar">
+            <option value="relevance">Relevância</option>
+            <option value="price-asc">Preço: menor → maior</option>
+            <option value="price-desc">Preço: maior → menor</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="menu-grid">
+        <aside class="filters surface" aria-label="Filtros do cardápio">
+          <div class="group">
+            <div class="chip
+            <div class="chip" role="heading" aria-level="3">Categorias</div>
+            
+            <label>
+              <input type="checkbox" name="category" value="sushi" checked>
+              Sushi & Sashimi
+            </label>
+            <label>
+              <input type="checkbox" name="category" value="poke">
+              Poke Bowls
+            </label>
+            <label>
+              <input type="checkbox" name="category" value="hot">
+              Pratos Quentes
+            </label>
+            <label>
+              <input type="checkbox" name="category" value="entradas">
+              Entradas
+            </label>
+            <label>
+              <input type="checkbox" name="category" value="bebidas">
+              Bebidas
+            </label>
+            <label>
+              <input type="checkbox" name="category" value="sobremesas">
+              Sobremesas
+            </label>
+          </div>
+          
+          <div class="group">
+            <div class="chip" role="heading" aria-level="3">Preço</div>
+            
+            <label>
+              <input type="checkbox" name="price" value="0-30">
+              Até R$ 30
+            </label>
+            <label>
+              <input type="checkbox" name="price" value="30-50">
+              R$ 30 - R$ 50
+            </label>
+            <label>
+              <input type="checkbox" name="price" value="50-80">
+              R$ 50 - R$ 80
+            </label>
+            <label>
+              <input type="checkbox" name="price" value="80+">
+              Acima de R$ 80
+            </label>
+          </div>
+          
+          <div class="group">
+            <div class="chip" role="heading" aria-level="3">Dietas</div>
+            
+            <label>
+              <input type="checkbox" name="diet" value="vegan">
+              Vegano
+            </label>
+            <label>
+              <input type="checkbox" name="diet" value="vegetarian">
+              Vegetariano
+            </label>
+            <label>
+              <input type="checkbox" name="diet" value="glutenfree">
+              Sem Glúten
+            </label>
+            <label>
+              <input type="checkbox" name="diet" value="lactosefree">
+              Sem Lactose
+            </label>
+          </div>
+          
+          <button class="btn btn-primary" style="width: 100%" id="applyFilters">Aplicar Filtros</button>
+          <button class="btn btn-ghost" style="width: 100%" id="clearFilters">Limpar Filtros</button>
+        </aside>
+        
+        <div class="menu-list" id="menuItems">
+          <!-- Item 1 -->
+          <div class="dish surface" data-category="sushi" data-price="42" data-diet="">
+            <div class="dish-visual">
+              <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sushi variado com salmão, atum e pepino" loading="lazy">
+            </div>
+            <div class="dish-body">
+              <div class="dish-title">
+                <h3>Sushi Combinado</h3>
+                <span class="price">R$ 42</span>
+              </div>
+              <p class="dish-desc">12 peças: 4 nigiri salmão, 4 nigiri atum, 4 uramaki pepino.</p>
+              <div class="pillbar">
+                <span class="pill">Sushi</span>
+                <span class="pill">Peixe cru</span>
+              </div>
+              <div class="card-actions">
+                <div class="qty-controls">
+                  <button class="btn btn-ghost btn-icon" aria-label="Diminuir quantidade">−</button>
+                  <span class="qty">0</span>
+                  <button class="btn btn-ghost btn-icon" aria-label="Aumentar quantidade">+</button>
+                </div>
+                <button class="btn btn-primary btn-add" data-id="1">Adicionar</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Item 2 -->
+          <div class="dish surface" data-category="poke" data-price="38" data-diet="glutenfree">
+            <div class="dish-visual">
+              <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Poke bowl de salmão com abacate e edamame" loading="lazy">
+            </div>
+            <div class="dish-body">
+              <div class="dish-title">
+                <h3>Poke de Salmão</h3>
+                <span class="price">R$ 38</span>
+              </div>
+              <p class="dish-desc">Salmão fresco, arroz, abacate, edamame, manga e molho especial.</p>
+              <div class="pillbar">
+                <span class="pill">Poke</span>
+                <span class="pill">Sem glúten</span>
+              </div>
+              <div class="card-actions">
+                <div class="qty-controls">
+                  <button class="btn btn-ghost btn-icon" aria-label="Diminuir quantidade">−</button>
+                  <span class="qty">0</span>
+                  <button class="btn btn-ghost btn-icon" aria-label="Aumentar quantidade">+</button>
+                </div>
+                <button class="btn btn-primary btn-add" data-id="2">Adicionar</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Item 3 -->
+          <div class="dish surface" data-category="hot" data-price="56" data-diet="">
+            <div class="dish-visual">
+              <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Temaki de salmão com cream cheese" loading="lazy">
+            </div>
+            <div class="dish-body">
+              <div class="dish-title">
+                <h3>Temaki Especial</h3>
+                <span class="price">R$ 56</span>
+              </div>
+              <p class="dish-desc">Salmão, cream cheese, cebolinha e molho tarê, enrolados em alga nori.</p>
+              <div class="pillbar">
+                <span class="pill">Temaki</span>
+                <span class="pill">Cream cheese</span>
+              </div>
+              <div class="card-actions">
+                <div class="qty-controls">
+                  <button class="btn btn-ghost btn-icon" aria-label="Diminuir quantidade">−</button>
+                  <span class="qty">0</span>
+                  <button class="btn btn-ghost btn-icon" aria-label="Aumentar quantidade">+</button>
+                </div>
+                <button class="btn btn-primary btn-add" data-id="3">Adicionar</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Item 4 -->
+          <div class="dish surface" data-category="entradas" data-price="28" data-diet="vegetarian">
+            <div class="dish-visual">
+              <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Gyozas vegetarianas com molho" loading="lazy">
+            </div>
+            <div class="dish-body">
+              <div class="dish-title">
+                <h3>Gyozas Vegetarianas</h3>
+                <span class="price">R$ 28</span>
+              </div>
+              <p class="dish-desc">Massa fina recheada com legumes, servida com molho agridoce.</p>
+              <div class="pillbar">
+                <span class="pill">Entrada</span>
+                <span class="pill">Vegetariano</span>
+              </div>
+              <div class="card-actions">
+                <div class="qty-controls">
+                  <button class="btn btn-ghost btn-icon" aria-label="Diminuir quantidade">−</button>
+                  <span class="qty">0</span>
+                  <button class="btn btn-ghost btn-icon" aria-label="Aumentar quantidade">+</button>
+                </div>
+                <button class="btn btn-primary btn-add" data-id="4">Adicionar</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Item 5 -->
+          <div class="dish surface" data-category="sushi" data-price="65" data-diet="">
+            <div class="dish-visual">
+              <img src="https://plus.unsplash.com/premium_photo-1668143360807-4e654dc5bae0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8U2FzaGltaSUyMFByZW1pdW18ZW58MHx8MHx8fDA%3D" alt="Sashimi premium variado" loading="lazy">
+            </div>
+            <div class="dish-body">
+              <div class="dish-title">
+                <h3>Sashimi Premium</h3>
+                <span class="price">R$ 65</span>
+              </div>
+              <p class="dish-desc">15 fatias: salmão, atum, robalo e peixe branco, com raiz-forte.</p>
+              <div class="pillbar">
+                <span class="pill">Sashimi</span>
+                <span class="pill">Peixe cru</span>
+              </div>
+              <div class="card-actions">
+                <div class="qty-controls">
+                  <button class="btn btn-ghost btn-icon" aria-label="Diminuir quantidade">−</button>
+                  <span class="qty">0</span>
+                  <button class="btn btn-ghost btn-icon" aria-label="Aumentar quantidade">+</button>
+                </div>
+                <button class="btn btn-primary btn-add" data-id="5">Adicionar</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Item 6 -->
+          <div class="dish surface" data-category="bebidas" data-price="18" data-diet="vegan glutenfree lactosefree">
+            <div class="dish-visual">
+              <img src="https://images.unsplash.com/photo-1559715745-e1b33a271c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Chá verde japonês em xícara tradicional" loading="lazy">
+            </div>
+            <div class="dish-body">
+              <div class="dish-title">
+                <h3>Chá Verde Japonês</h3>
+                <span class="price">R$ 18</span>
+              </div>
+              <p class="dish-desc">Chá verde tradicional servido quente, em xícara de cerâmica artesanal.</p>
+              <div class="pillbar">
+                <span class="pill">Bebida</span>
+                <span class="pill">Vegano</span>
+              </div>
+              <div class="card-actions">
+                <div class="qty-controls">
+                  <button class="btn btn-ghost btn-icon" aria-label="Diminuir quantidade">−</button>
+                  <span class="qty">0</span>
+                  <button class="btn btn-ghost btn-icon" aria-label="Aumentar quantidade">+</button>
+                </div>
+                <button class="btn btn-primary btn-add" data-id="6">Adicionar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Reservas ===== -->
+    <section class="container" id="reservas">
+      <div class="section-head">
+        <div>
+          <h2>Reservas</h2>
+          <div class="section-sub">Garanta sua experiência gastronômica.</div>
+        </div>
+      </div>
+      
+      <div class="surface" style="padding: 2rem;">
+        <form id="reservationForm">
+          <div class="grid-2">
+            <div class="field">
+              <label for="reservation-name">Nome completo *</label>
+              <input type="text" id="reservation-name" required>
+            </div>
+            
+            <div class="field">
+              <label for="reservation-email">E-mail *</label>
+              <input type="email" id="reservation-email" required>
+            </div>
+          </div>
+          
+          <div class="grid-3">
+            <div class="field">
+              <label for="reservation-phone">Telefone *</label>
+              <input type="tel" id="reservation-phone" required>
+            </div>
+            
+            <div class="field">
+              <label for="reservation-date">Data *</label>
+              <input type="date" id="reservation-date" required>
+            </div>
+            
+            <div class="field">
+              <label for="reservation-time">Horário *</label>
+              <input type="time" id="reservation-time" min="11:30" max="22:30" required>
+            </div>
+          </div>
+          
+          <div class="grid-2">
+            <div class="field">
+              <label for="reservation-guests">Número de pessoas *</label>
+              <select id="reservation-guests" required>
+                <option value="1">1 pessoa</option>
+                <option value="2" selected>2 pessoas</option>
+                <option value="3">3 pessoas</option>
+                <option value="4">4 pessoas</option>
+                <option value="5">5 pessoas</option>
+                <option value="6">6 pessoas</option>
+                <option value="7">7 pessoas</option>
+                <option value="8">8 pessoas</option>
+                <option value="9">9+ pessoas (consultar)</option>
+              </select>
+            </div>
+            
+            <div class="field">
+              <label for="reservation-occasion">Ocasião especial (opcional)</label>
+              <select id="reservation-occasion">
+                <option value="">Selecionar</option>
+                <option value="aniversario">Aniversário</option>
+                <option value="casamento">Data especial</option>
+                <option value="negocios">Jantar de negócios</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="field">
+            <label for="reservation-notes">Observações ou pedidos especiais</label>
+            <textarea id="reservation-notes" rows="3"></textarea>
+          </div>
+          
+          <div class="flex" style="justify-content: flex-end; margin-top: 1.5rem;">
+            <button type="reset" class="btn btn-ghost">Limpar</button>
+            <button type="submit" class="btn btn-primary">Solicitar Reserva</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== Delivery ===== -->
+    <section class="container" id="delivery">
+      <div class="section-head">
+        <div>
+          <h2>Delivery</h2>
+          <div class="section-sub">Peça online e receba em casa.</div>
+        </div>
+      </div>
+      
+      <div class="surface" style="padding: 2rem;">
+        <form id="deliveryForm">
+          <div class="field">
+            <label for="delivery-address">Endereço de entrega *</label>
+            <input type="text" id="delivery-address" placeholder="Rua, número, bairro" required>
+          </div>
+          
+          <div class="grid-2">
+            <div class="field">
+              <label for="delivery-complement">Complemento (opcional)</label>
+              <input type="text" id="delivery-complement" placeholder="Apartamento, bloco, referência">
+            </div>
+            
+            <div class="field">
+              <label for="delivery-phone">Telefone para contato *</label>
+              <input type="tel" id="delivery-phone" required>
+            </div>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <div class="field">
+            <label>Forma de pagamento *</label>
+            <div class="flex" style="gap: 1rem; flex-wrap: wrap;">
+              <label style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="payment" value="credit" required> Cartão de crédito
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="payment" value="debit"> Cartão de débito
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="payment" value="pix"> PIX
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="payment" value="cash"> Dinheiro
+              </label>
+            </div>
+          </div>
+          
+          <div class="field" id="creditCardFields" style="display: none;">
+            <div class="grid-2">
+              <div class="field">
+                <label for="card-number">Número do cartão</label>
+                <input type="text" id="card-number" placeholder="0000 0000 0000 0000">
+              </div>
+              
+              <div class="field">
+                <label for="card-name">Nome no cartão</label>
+                <input type="text" id="card-name">
+              </div>
+            </div>
+            
+            <div class="grid-3">
+              <div class="field">
+                <label for="card-expiry">Validade</label>
+                <input type="text" id="card-expiry" placeholder="MM/AA">
+              </div>
+              
+              <div class="field">
+                <label for="card-cvv">CVV</label>
+                <input type="text" id="card-cvv" placeholder="000">
+              </div>
+              
+              <div class="field">
+                <label for="card-installments">Parcelas</label>
+                <select id="card-installments">
+                  <option value="1">1x sem juros</option>
+                  <option value="2">2x sem juros</option>
+                  <option value="3">3x sem juros</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex" style="justify-content: space-between; align-items: center; margin-top: 1.5rem;">
+            <div>
+              <div class="hint">Tempo estimado: 35-50 min</div>
+              <div class="hint">Taxa de entrega: R$ 9,90</div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== Sobre ===== -->
+    <section class="container" id="sobre">
+      <div class="section-head">
+        <div>
+          <h2>Sobre o Nori</h2>
+          <div class="section-sub">Nossa história e filosofia.</div>
+        </div>
+      </div>
+      
+      <div class="surface" style="padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+          <p>Fundado em 2015, o Nori nasceu da paixão pela autêntica culinária japonesa combinada com uma abordagem contemporânea. Nosso nome homenageia a alga marinha essencial na culinária japonesa, simbolizando nosso compromisso com a tradição.</p>
+          
+          <p>Nossos chefs, treinados no Japão, selecionam pessoalmente os peixes mais frescos no mercado diariamente, garantindo qualidade superior em cada prato. Combinamos técnicas tradicionais com criatividade para oferecer uma experiência gastronômica única.</p>
+          
+          <p>Acreditamos que uma refeição vai além de alimentar o corpo - é um momento de prazer, conexão e celebração. Cada detalhe, desde a seleção dos ingredientes até o atendimento, é cuidadosamente planejado para proporcionar momentos memoráveis.</p>
+        </div>
+        
+        <div>
+          <img src="https://images.unsplash.com/photo-1730635250911-b787fbc7e90f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Q2hlZmUlMjBwcmVwYXJhbmRvJTIwb3MlMjBzdXNoaXxlbnwwfHwwfHx8MA%3D%3D" alt="Chef preparando sushi no restaurante Nori" loading="lazy" style="border-radius: var(--radius);">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contato ===== -->
+    <section class="container" id="contato">
+      <div class="section-head">
+        <div>
+          <h2>Contato</h2>
+          <div class="section-sub">Entre em contato conosco.</div>
+        </div>
+      </div>
+      
+      <div class="surface" style="padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+          <h3>Informações</h3>
+          
+          <div style="display: grid; gap: 1rem; margin-top: 1.5rem;">
+            <div class="flex">
+              <span style="min-width: 100px; color: var(--muted);">Endereço:</span>
+              <span>Av. Exemplo, 123 - Fortaleza/CE</span>
+            </div>
+            
+            <div class="flex">
+              <span style="min-width: 100px; color: var(--muted);">Telefone:</span>
+              <span>(85) 99999-0000</span>
+            </div>
+            
+            <div class="flex">
+              <span style="min-width: 100px; color: var(--muted);">E-mail:</span>
+              <span>contato@nori.com.br</span>
+            </div>
+            
+            <div class="flex">
+              <span style="min-width: 100px; color: var(--muted);">Horário:</span>
+              <span>Segunda a Domingo, 11h30–23h</span>
+            </div>
+          </div>
+          
+          <div style="margin-top: 2rem;">
+            <h3>Redes sociais</h3>
+            <div class="flex" style="gap: 1rem; margin-top: 1rem;">
+              <a href="#" class="btn btn-ghost btn-icon" aria-label="Instagram">📱</a>
+              <a href="#" class="btn btn-ghost btn-icon" aria-label="Facebook">📘</a>
+              <a href="#" class="btn btn-ghost btn-icon" aria-label="WhatsApp">💬</a>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h3>Envie uma mensagem</h3>
+          
+          <form style="margin-top: 1.5rem;">
+            <div class="field">
+              <label for="contact-name">Nome</label>
+              <input type="text" id="contact-name">
+            </div>
+            
+            <div class="field">
+              <label for="contact-email">E-mail</label>
+              <input type="email" id="contact-email">
+            </div>
+            
+            <div class="field">
+              <label for="contact-message">Mensagem</label>
+              <textarea id="contact-message" rows="4"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Enviar Mensagem</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Carrinho (Drawer) ===== -->
+  <div class="drawer" id="cartDrawer">
+    <div class="overlay" id="closeCart"></div>
+    
+    <div class="panel">
+      <header>
+        <div class="flex">
+          <h2>Seu pedido</h2>
+          <button class="btn btn-ghost btn-icon" id="closeCartBtn" aria-label="Fechar carrinho">✕</button>
+        </div>
+      </header>
+      
+      <div class="cart-list" id="cartItems">
+        <!-- Itens do carrinho serão adicionados aqui via JavaScript -->
+        <div class="empty-cart" style="text-align: center; padding: 2rem; color: var(--muted);">
+          Seu carrinho está vazio
+        </div>
+      </div>
+      
+      <footer>
+        <div class="cart-totals">
+          <div class="row">
+            <span>Subtotal</span>
+            <span>R$ 0,00</span>
+          </div>
+          <div class="row">
+            <span>Taxa de entrega</span>
+            <span>R$ 9,90</span>
+          </div>
+          <div class="row total">
+            <span>Total</span>
+            <span>R$ 9,90</span>
+          </div>
+        </div>
+        
+        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" disabled>Finalizar Compra</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+        <div>
+          <div class="brand" style="margin-bottom: 1rem;">
+            <span class="brand-logo" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z" fill="currentColor" opacity=".15"/><path d="M5 15c2.5-1.7 7.5-1.7 10 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="9" r="2" fill="currentColor"/></svg>
+            </span>
+            Nori
+          </div>
+          <p style="color: var(--muted); line-height: 1.6;">Autêntica culinária japonesa com toque contemporâneo.</p>
+        </div>
+        
+        <div>
+          <h3>Links rápidos</h3>
+          <nav style="display: grid; gap: 0.5rem; margin-top: 1rem;">
+            <a href="#cardapio">Cardápio</a>
+            <a href="#reservas">Reservas</a>
+            <a href="#delivery">Delivery</a>
+            <a href="#sobre">Sobre</a>
+          </nav>
+        </div>
+        
+        <div>
+          <h3>Contato</h3>
+          <div style="display: grid; gap: 0.5rem; margin-top: 1rem;">
+            <div>Av. Exemplo, 123</div>
+            <div>Fortaleza/CE</div>
+            <div>(85) 99999-0000</div>
+            <div>contato@nori.com.br</div>
+          </div>
+        </div>
+        
+        <div>
+          <h3>Horário de funcionamento</h3>
+          <div style="display: grid; gap: 0.5rem; margin-top: 1rem;">
+            <div>Segunda a Domingo</div>
+            <div>11h30 – 23h</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="divider" style="margin: 2rem 0;"></div>
+      
+      <div class="kicker">
+        <p>© 2023 Nori Restaurante Japonês. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+
+// ===== Funcionalidades JavaScript =====
+document.addEventListener('DOMContentLoaded', function() {
+  // Alternar tema claro/escuro
+  const themeToggle = document.getElementById('themeToggle');
+  const sunIcon = themeToggle.querySelector('#sun');
+  let isDark = true;
+  
+  // Verificar preferência do sistema
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    isDark = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+  
+  themeToggle.addEventListener('click', () => {
+    isDark = !isDark;
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    
+    // Alternar ícone do tema
+    sunIcon.innerHTML = isDark ? 
+      '<path d="M12 4V2m0 20v-2M4 12H2m20 0h-2M5 5 3.6 3.6M20.4 20.4 19 19M19 5l1.4-1.4M5 19 3.6 20.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="4"/>' :
+      '<path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="1.5"/><path d="m6.3 6.3-1.4-1.4M4 12H2m20 0h-2m-2.3 5.7 1.4 1.4M12 4v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
+  });
+
+  // Menu mobile
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.querySelector('.nav-links');
+  
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+    menuToggle.setAttribute('aria-label', 
+      navLinks.classList.contains('mobile-open') ? 'Fechar menu' : 'Abrir menu');
+  });
+
+  // Scroll suave para âncoras
+  document.querySelectorAll('a[href^="#"], button[data-scroll]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href') || this.getAttribute('data-scroll');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        const headerHeight = document.querySelector('header').offsetHeight;
+        const targetPosition = targetElement.offsetTop - headerHeight;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Fechar menu mobile se aberto
+        navLinks.classList.remove('mobile-open');
+      }
+    });
+  });
+
+  // Header com scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Animação de fade-in
+  const fadeElements = document.querySelectorAll('.fade-in');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  fadeElements.forEach(el => observer.observe(el));
+
+  // Funcionalidade do carrinho
+  const cartDrawer = document.getElementById('cartDrawer');
+  const openCartBtn = document.getElementById('openCart');
+  const closeCartBtn = document.getElementById('closeCartBtn');
+  const closeCartOverlay = document.getElementById('closeCart');
+  const cartCount = document.getElementById('cartCount');
+  const cartItems = document.getElementById('cartItems');
+  const cart = [];
+  
+  // Abrir/fechar carrinho
+  openCartBtn.addEventListener('click', () => cartDrawer.classList.add('active'));
+  closeCartBtn.addEventListener('click', () => cartDrawer.classList.remove('active'));
+  closeCartOverlay.addEventListener('click', () => cartDrawer.classList.remove('active'));
+  
+  // Adicionar itens ao carrinho
+  document.querySelectorAll('.btn-add').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const id = this.getAttribute('data-id');
+      const dishElement = this.closest('.dish');
+      const name = dishElement.querySelector('h3').textContent;
+      const price = parseFloat(dishElement.querySelector('.price').textContent.replace('R$ ', '').replace(',', '.'));
+      const image = dishElement.querySelector('img').src;
+      
+      // Verificar se o item já está no carrinho
+      const existingItem = cart.find(item => item.id === id);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({
+          id,
+          name,
+          price,
+          image,
+          quantity: 1
+        });
+      }
+      
+      updateCart();
+      cartDrawer.classList.add('active');
+    });
+  });
+  
+  // Atualizar carrinho
+  function updateCart() {
+    // Atualizar contador
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+    
+    // Atualizar lista de itens
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<div class="empty-cart" style="text-align: center; padding: 2rem; color: var(--muted);">Seu carrinho está vazio</div>';
+    } else {
+      cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item" data-id="${item.id}">
+          <div class="thumb">
+            <img src="${item.image}" alt="${item.name}">
+          </div>
+          <div class="details">
+            <div class="name">${item.name}</div>
+            <div class="price">R$ ${item.price.toFixed(2)}</div>
+          </div>
+          <div class="actions">
+            <div class="qty-controls">
+              <button class="btn btn-ghost btn-icon decrease">−</button>
+              <span class="qty">${item.quantity}</span>
+              <button class="btn btn-ghost btn-icon increase">+</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      
+      // Adicionar event listeners para aumentar/diminuir quantidade
+      cartItems.querySelectorAll('.increase').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const itemId = this.closest('.cart-item').getAttribute('data-id');
+          const item = cart.find(item => item.id === itemId);
+          item.quantity += 1;
+          updateCart();
+        });
+      });
+      
+      cartItems.querySelectorAll('.decrease').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const itemId = this.closest('.cart-item').getAttribute('data-id');
+          const itemIndex = cart.findIndex(item => item.id === itemId);
+          
+          if (cart[itemIndex].quantity > 1) {
+            cart[itemIndex].quantity -= 1;
+          } else {
+            cart.splice(itemIndex, 1);
+          }
+          
+          updateCart();
+        });
+      });
+    }
+    
+    // Atualizar totais
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const deliveryFee = 9.9;
+    const total = subtotal + deliveryFee;
+    
+    const totalsElement = document.querySelector('.cart-totals');
+    totalsElement.innerHTML = `
+      <div class="row">
+        <span>Subtotal</span>
+        <span>R$ ${subtotal.toFixed(2)}</span>
+      </div>
+      <div class="row">
+        <span>Taxa de entrega</span>
+        <span>R$ ${deliveryFee.toFixed(2)}</span>
+      </div>
+      <div class="row total">
+        <span>Total</span>
+        <span>R$ ${total.toFixed(2)}</span>
+      </div>
+    `;
+    
+    // Habilitar/desabilitar botão de finalizar compra
+    const checkoutBtn = document.querySelector('.panel footer .btn-primary');
+    checkoutBtn.disabled = cart.length === 0;
+  }
+  
+  // Filtros do menu
+  const applyFiltersBtn = document.getElementById('applyFilters');
+  const clearFiltersBtn = document.getElementById('clearFilters');
+  const searchInput = document.getElementById('q');
+  const sortSelect = document.getElementById('sort');
+  
+  applyFiltersBtn.addEventListener('click', filterMenu);
+  clearFiltersBtn.addEventListener('click', clearFilters);
+  searchInput.addEventListener('input', filterMenu);
+  sortSelect.addEventListener('change', filterMenu);
+  
+  function filterMenu() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
+    const selectedPrices = Array.from(document.querySelectorAll('input[name="price"]:checked')).map(cb => cb.value);
+    const selectedDiets = Array.from(document.querySelectorAll('input[name="diet"]:checked')).map(cb => cb.value);
+    const sortBy = sortSelect.value;
+    
+    document.querySelectorAll('.dish').forEach(dish => {
+      const name = dish.querySelector('h3').textContent.toLowerCase();
+      const description = dish.querySelector('.dish-desc').textContent.toLowerCase();
+      const category = dish.getAttribute('data-category');
+      const price = parseFloat(dish.getAttribute('data-price'));
+      const diets = dish.getAttribute('data-diet').split(' ');
+      
+      // Verificar busca
+      const matchesSearch = searchTerm === '' || 
+        name.includes(searchTerm) || 
+        description.includes(searchTerm);
+      
+      // Verificar categorias
+      const matchesCategory = selectedCategories.length === 0 || 
+        selectedCategories.includes(category);
+      
+      // Verificar preço
+      let matchesPrice = selectedPrices.length === 0;
+      if (!matchesPrice) {
+        for (const priceRange of selectedPrices) {
+          if (priceRange === '0-30' && price <= 30) matchesPrice = true;
+          else if (priceRange === '30-50' && price > 30 && price <= 50) matchesPrice = true;
+          else if (priceRange === '50-80' && price > 50 && price <= 80) matchesPrice = true;
+          else if (priceRange === '80+' && price > 80) matchesPrice = true;
+        }
+      }
+      
+      // Verificar dietas
+      const matchesDiet = selectedDiets.length === 0 || 
+        selectedDiets.some(diet => diets.includes(diet));
+      
+      // Mostrar/ocultar conforme os filtros
+      if (matchesSearch && matchesCategory && matchesPrice && matchesDiet) {
+        dish.style.display = 'flex';
+      } else {
+        dish.style.display = 'none';
+      }
+    });
+    
+    // Ordenação
+    const menuContainer = document.getElementById('menuItems');
+    const dishes = Array.from(menuContainer.querySelectorAll('.dish'));
+    
+    dishes.sort((a, b) => {
+      const priceA = parseFloat(a.getAttribute('data-price'));
+      const priceB = parseFloat(b.getAttribute('data-price'));
+      
+      switch(sortBy) {
+        case 'price-asc': return priceA - priceB;
+        case 'price-desc': return priceB - priceA;
+        default: return 0; // Relevância (mantém ordem original)
+      }
+    });
+    
+    // Reordenar no DOM
+    dishes.forEach(dish => menuContainer.appendChild(dish));
+  }
+  
+  function clearFilters() {
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+    searchInput.value = '';
+    sortSelect.value = 'relevance';
+    filterMenu();
+  }
+  
+  // Formulários
+  document.getElementById('reservationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Reserva solicitada com sucesso! Entraremos em contato para confirmação.');
+    this.reset();
+  });
+  
+  document.getElementById('deliveryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    if (cart.length === 0) {
+      alert('Adicione itens ao carrinho antes de finalizar o pedido.');
+      return;
+    }
+    
+    alert('Pedido realizado com sucesso! Em breve você receberá a confirmação.');
+    cart.length = 0;
+    updateCart();
+    this.reset();
+    cartDrawer.classList.remove('active');
+  });
+  
+  // Mostrar/ocultar campos de cartão de crédito
+  document.querySelectorAll('input[name="payment"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      const creditCardFields = document.getElementById('creditCardFields');
+      creditCardFields.style.display = this.value === 'credit' ? 'grid' : 'none';
+    });
+  });
+  
+  // Inicializar carrinho
+  updateCart();
+});
+</script>
+    
